@@ -1,0 +1,19 @@
+# Configuration file for BSA pipeline
+
+# Please dowload reference genome and GFF3 annotation from EnsemblPlants
+# Use data from other source (such as rap-db) may cause unexpected errors.
+ref_genome: "rawdata/Oryza_sativa.IRGSP-1.0.dna.toplevel.fa.gz"
+anno_gff: "rawdata/Oryza_sativa.IRGSP-1.0.53.gff3.gz"
+
+samples:
+  group1:
+    bulk1:
+      R1: "rawdata/bulk1.R1.fastq.gz"
+      R2: "rawdata/bulk1.R2.fastq.gz"
+    bulk2:
+      R1: "rawdata/bulk2.R1.fastq.gz"
+      R2: "rawdata/bulk2.R2.fastq.gz"
+    bulk3:
+      R1: "rawdata/bulk3.R1.fastq.gz"
+      R2: "rawdata/bulk3.R2.fastq.gz"
+

@@ -1,0 +1,14 @@
+# bsa-pipeline conda enviroment
+name: bsa
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - snakemake=7.7  # for running this pipeline
+  - bwa=0.7.17  # for sequence alighment
+  - samtools=1.15  # for sequence alighment
+  - gatk4=4.2  # for duplication removement and snp calling
+  - fastp=0.23  # for raw sequencing data cleaning
+  - tabix=1.11  # for indexing gff file
+  - ensembl-vep=106  # for annotation
+
