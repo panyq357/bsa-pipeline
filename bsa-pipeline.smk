@@ -232,6 +232,6 @@ rule variant_to_table:
             -R {input.ref_genome_fa_copy} \
             -V {input.annotated_vcf} \
             -F CHROM -F POS -F REF -F ALT \
-            -GF AD -GF DP -GF GQ -F CSQ \
+            -GF AD -GF DP -GF GQ -GF PL \
             -O {output.table}
         '''
