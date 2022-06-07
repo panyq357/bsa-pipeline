@@ -85,3 +85,33 @@ get_sliding_window_snp_index <- function(df, chr_name = "CHROM", pos_name = "POS
     return(sliding_window_template)
 }
 
+# Replace CSQ gene ID with ID and annotation
+# Input:
+#   - a CSQ vector
+#   - a annotation named vector
+#   - a gene ID regex string
+#   - optional: mc.cores number
+# Output: a annotated CSQ vector
+# Note: annotation named vector can be constructed like this:
+# anno <- with(anno_table, setNames(Description, Locus_ID))
+annotate_CSQ <- function(CSQ, anno, gene_ID_regex, mc.cores = 2) {
+    all_matched_list <- stringr::str_match_all(CSQ, gene_ID_regex)
+
+    matched_matrix_to_ID_anno_named_vector <- function(x) {
+        if (is.null(dim(x))) {
+            return("")
+        } else {
+        setNames(paste(x[,1], anno[x[,1]]), x[,1])
+        }
+    }
+
+    ID_anno_list <- parallel::mclapply(all_matched_list, matched_matrix_to_ID_anno_named_vector, mc.cores = mc.cores)
+
+    replace_ID_with_anno <- function(x, i) {
+        for (ID in names(ID_anno_list[[i]])) {
+            x <- stringr::str_replace_all(x, ID_anno_list[[i]][ID])
+        }
+        return(x)
+    }
+    parallel::mcmapply(replace_ID_with_anno, CSQ, 1:length(CSQ), USE.NAMES = F, mc.cores = mc.cores)
+}
